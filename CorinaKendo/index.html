@@ -8,41 +8,78 @@
         <script src="kendo/js/kendo.mobile.min.js"></script>
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script src="scripts/hello-world.js"></script>
-
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
     </head>
     <body>
+        <div data-role="view" id="edit-listview" data-title="Products List" data-init="listViewInit">
+    <header data-role="header">
+        <div data-role="navbar">
+            <span data-role="view-title"></span>
+        </div>
+    </header>
+<div class="head">
+    
+            </div>
+    <ul id="listview"></ul>
+
+    <script id="itemTemplate" type="text/x-kendo-template">
+        <a> #=en# </a>
+    </script>
+</div>
+
+<div data-role="view" id="edit-detailview" data-show="detailShow" data-init="detailInit">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a class="nav-button" data-align="left" data-role="backbutton" id="cancel">Thank you!</a>
+            <span data-role="view-title">Details</span>
+        </div>
+    </header>
+        <div class="head2">
+            
+    </div>
+    <form>
+
+        <ul data-role="listview" data-style="inset" onclick="">
+            <li style="margin-bottom: 20px;">
+                <label style="font-size: 1.2em;">Norwegian
+                    <input style="font-size: 1.2em; color: white;" class="lang" type="text" readonly data-bind="value: no"/>
+                </label>
+            </li>
+            <li style="margin-bottom: 20px;">
+                <label style="font-size: 1.2em;">Romanian
+                    <input style="font-size: 1.2em; color: white;" class="lang" type="text" readonly data-bind="value: ro"/>
+                </label>
+            </li>
+        </ul>
+    </form>
+</div>
         <div data-role="view" id="tabstrip-home" data-title="Hello World!">
             <h1>Welcome!</h1>
-            <p>
-                Icenium&trade; enables you to build cross-platform device applications regardless of your 
-                development platform by combining the convenience of a local development toolset with the 
-                power and flexibility of the cloud.
+
+        </div>
+
+        <div data-role="view" id="about" data-title="About">
+                    <div class="head3"> </div>
+            <h1 style="color: black">About this app</h1>
+            <p style="color: black; font-size: 1.2em;text-align:center; font-family:"Comic Sans MS", cursive, sans-serif;">
+    My name is Iris and I'm a programmer. My beautiful mother has always been very curious about what I do, so I decided to teach her how to
+    create a simple application. She has not done any programming before. Since I work for Telerik we decided to try out Icenium, which is a first for me as well, combined with Kendo UI Mobile.
+    This is what she (with a little help from me) accomplished after 4-5 hours of programming and teaching. We even first tried out jQuery, but decided to use Kendo UI instead.
+            </br>
+          </br>
+        A simple app, but still really cool to see how much can be done in so little time from start to publish.
+    </br>
+  </br>
+    We speak several languages at home, and herbs seems to be something we never can remember the correct translation for, so we picked the ten most used herbs and made an app that shows us the translation in Romanian and Norwegian. The idea is to add more herbs, languages, description, images and filtering and more at some point.
+</br>  </br>
+If you are curious, try programming,- I promise you it is not as hard as it seems. Just start with a very simple app, and take it from there.
+    <div class="head3"> </div>
             </p>
         </div>
 
-        <div data-role="view" id="tabstrip-uiinteraction" data-title="UI Interaction">
-            <h1>Say Hello!</h1>
-            <div id='helloWorldInput'>
-                <label for="txtName" style="display: inline-block;">Enter your name:</label>
-                <input type="text" id="txtName" value="" />
-            </div>
-            <div id='helloWorldText' style="display:block;"></div>
-            <div class="buttonArea">
-                <a id="resetButton" data-role="button" data-click="sayHelloReset" data-icon="refresh">Reset</a>
-                <a id="submitButton" data-role="button" data-click="sayHello" data-icon="compose">Submit</a>
-            </div>
-        </div>
-
-        <div data-role="view" id="tabstrip-geolocation" data-title="Geolocation">
-            <h1>My Location</h1>
-            <div id="geoLocationContainer">
-                <div id="myLocation">Unable to get location information. Please check your network connection and try again.</div>
-                <a id="refreshMap" data-role="button" data-click="getLocation" data-icon="refresh">Refresh Location</a>
-                <div id="map_canvas"></div>
-            </div>
-        </div>
+        
+        
 
         <div data-role="layout" data-id="mobile-tabstrip">
             <header data-role="header">
@@ -53,15 +90,142 @@
 
             <div data-role="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="home">Home</a>
-                    <a href="#tabstrip-uiinteraction" data-icon="share">UI Interaction</a>
-                    <a href="#tabstrip-geolocation" data-icon="globe">Geolocation</a>
+                    <a href="#edit-listview" data-icon="home">Home</a>
+                    <a href="#about" data-icon="about">About</a>
                 </div>
             </div>
         </div>
+<style scoped>
 
+
+</style>
+
+<script>
+    var dataSource = new kendo.data.DataSource({
+ data: [
+            { no: "Basilikum", ro: "Busuioc", en: "Basil" },
+            { no: "Laurblad", ro: "Dafin", en: "Bay" },
+            { no: "Gressløk", ro: "Arpagic", en: "Chives" },
+            { no: "Dill", ro: "Mărar", en: "Dill" },
+            { no: "Mynt", ro: "Mentă", en: "Mint" },
+            { no: "Persille", ro: "Patrunjel", en: "Parsley" },
+            { no: "Rosmarin", ro: "Rozmarin", en: "Rosemary" },
+            { no: "Salvie", ro: "Salvie", en: "Sage" },
+            { no: "Estragon", ro: "Tarhon", en: "Tarragon" },
+            { no: "Timian", ro: "Cimbru", en: "Thyme" }
+        ]
+    });
+
+    function listViewInit(e) {
+        e.view.element.find("#listview").kendoMobileListView({
+            dataSource: dataSource,
+            template: $("#itemTemplate").html()
+        })
+        .kendoTouch({
+            filter: ">li",
+            enableSwipe: true,
+            touchstart: touchstart,
+            tap: navigate,
+            swipe: swipe
+        });
+    }
+
+    function navigate(e) {
+        var itemUID = $(e.touch.currentTarget).data("uid");
+        kendo.mobile.application.navigate("#edit-detailview?uid=" + itemUID);
+    }
+
+    function swipe(e) {
+        var button = kendo.fx($(e.touch.currentTarget).find("[data-role=button]"));
+        button.expand().duration(200).play();
+    }
+
+    function touchstart(e) {
+        var target = $(e.touch.initialTouch),
+            listview = $("#listview").data("kendoMobileListView"),
+            model,
+            button = $(e.touch.target).find("[data-role=button]:visible");
+
+        if (target.closest("[data-role=button]")[0]) {
+            model = dataSource.getByUid($(e.touch.target).attr("data-uid"));
+            dataSource.remove(model);
+
+            //prevent `swipe`
+            this.events.cancel();
+            e.event.stopPropagation();
+        } else if (button[0]) {
+            button.hide();
+
+            //prevent `swipe`
+            this.events.cancel();
+        } else {
+            listview.items().find("[data-role=button]:visible").hide();
+        }
+    }
+
+    function detailShow(e) {
+        var model = dataSource.getByUid(e.view.params.uid);
+
+        kendo.bind(e.view.element, model, kendo.mobile.ui);
+    }
+
+    function detailInit(e) {
+        var view = e.view;
+
+        view.element.find("#cancel").data("kendoMobileBackButton").bind("click", function(e) {
+            e.preventDefault();
+            dataSource.one("change", function() {
+                view.loader.hide();
+                window.kendoMobileApplication.navigate("#:back");
+            });
+
+            view.loader.show();
+            dataSource.cancelChanges();
+        });
+    }
+</script>
         <script>
+            
+
+            
             var app = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip" });
+
         </script>
+        <script id="tmp" type="text/x-kendo-template">
+    <p><span>#= en #</span></p>
+</script>
+            <script>
+                var template = kendo.template($("#tmp").html());
+ 
+                
+                 $("#list").kendoMobileListView({
+    dataSource: new kendo.data.DataSource({
+ data: [
+            { no: "Basilikum", ro: "Busuioc", en: "Basil"},
+            { no: "John", ro: "", en: "de" },
+            { no: "Jane", ro: "", en: "de" },
+            { no: "Jane", ro: "", en: "de" },
+            { no: "John", ro: "", en: "de" },
+            { no: "Jane", ro: "", en: "de" },
+            { no: "Jane", ro: "", en: "de" },
+            { no: "John", ro: "", en: "de" },
+            { no: "Jane", ro: "", en: "e" },
+            { no: "John", ro: "", en: "de" }
+
+        ]
+    }),
+
+        click: function(e) {
+             $("#md").data("kendoMobileModalView").open();
+         console.log(e.dataItem.no);
+    },
+    template: template
+     
+ });
+                
+    function showWhoOpenedMe(e) {
+      $("#container").html(" I was opened from ");
+    }
+</script>
     </body>
 </html>
